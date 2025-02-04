@@ -1,15 +1,17 @@
-# Use Python official base image
+
+
 FROM python:3.8
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy application files into the container
-COPY calculator.py /app
-COPY test_calculator.py /app
+# Copy dependencies first (caching)
+COPY requirements.txt /app
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install any necessary dependencies (if required)
-RUN pip install --no-cache-dir pytest
+# Copy application files
+COPY . /app
 
-# Command to run unit tests and keep the container running
-CMD ["python3", "calculator.py"]
+# Set the default CMD for Jenkins builds
+CMD ["python3", "-m", "unittest", "discover", "-s", "."]
+
