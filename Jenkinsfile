@@ -21,12 +21,15 @@ pipeline {
         }
 
         stage('Run Tests in Docker') {
-            steps {
-                script {
-                    sh 'docker run --rm calculator-app'
-                }
-            }
+    steps {
+        script {
+            sh '''
+                docker run --rm calculator-app python3 -m unittest discover -s .
+            '''
         }
+    }
+}
+
 
         stage('Deploy Application') {
             steps {
