@@ -3,7 +3,6 @@
 
 pipeline {
     agent any
-
     stages {
         stage('Checkout Code') {
             steps {
@@ -30,12 +29,16 @@ pipeline {
         }
 
         stage('Deploy Application') {
-            steps {
-                script {
-                    sh 'docker run -d -p 5050:5050 --name calculator-container calculator-app'
-                }
-            }
+    steps {
+        script {
+            sh '''
+                docker stop calculator-container || true
+                docker rm calculator-container || true
+                docker run -d -p 5050:5050 --name calculator-container calculator-app
+            '''
         }
     }
+}
+
 }
 
