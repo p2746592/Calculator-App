@@ -7,7 +7,9 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/p2746592/Calculator-App.git'
+                script {
+                    git credentialsId: '921ae6ae-ac29-4099-afce-73130c1b7776', branch: 'main', url: 'https://github.com/p2746592/Calculator-App.git'
+                }
             }
         }
 
