@@ -12,4 +12,4 @@ COPY test_calculator.py /app
 RUN pip install --no-cache-dir pytest
 
 # Command to run unit tests and keep the container running
-CMD ["python3", "-m", "unittest", "discover", "-s", "."]
+CMD ["python3", "calculator.py"]
